@@ -19,10 +19,16 @@ function twoSecPromise() {
   });
 }
 
+async function asyncCall() {
+  let counter = 2;
+  do {
+    await oneSecPromise()
+      .then(res => console.log(res))
+    await twoSecPromise()
+      .then(res => console.log(res))
+  } while (counter--);
+}
 
-// oneSecPromise()
-//   .then(() => twoSecPromise())
-//   .catch(err => console.error(err));
 
 co(function* () {
   let counter = 2;
@@ -33,4 +39,9 @@ co(function* () {
       .then(res => console.log(res))
   } while (counter--);
 })
+  .then(() => asyncCall())
   .catch(err => console.error(err));
+
+
+
+
